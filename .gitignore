@@ -1,0 +1,20 @@
+# ---- .NET 构建产物 ----
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# ---- 发布产物（在 ..\Sakura-vX.Y\ ，不进仓库） ----
+publish/
+publish_sc/
+
+# ---- 音色模型权重：不公开分发 ----
+*.pth
+*.ckpt
+*.onnx
+
+# ---- 角色配音音频（版权原因不随仓库分发） ----
+assets/sounds/*.mp3
+assets/sounds/*.wav
+assets/sounds/*.m4a

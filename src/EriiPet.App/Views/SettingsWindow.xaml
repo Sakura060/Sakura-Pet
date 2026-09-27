@@ -1,0 +1,419 @@
+<Window x:Class="EriiPet.App.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="绘梨衣 · 设置" Width="400" Height="720"
+        WindowStyle="None" AllowsTransparency="True"
+        ResizeMode="NoResize" Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Microsoft YaHei"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+
+    <Window.Resources>
+        <Style TargetType="Slider">
+            <Setter Property="Margin" Value="0,4,0,8"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,10,0,3"/>
+        </Style>
+        <Style x:Key="SectionTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,16,0,8"/>
+        </Style>
+        <Style x:Key="InputBox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Background" Value="#FFF5F7"/>
+            <Setter Property="BorderBrush" Value="#F0D5DC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Margin" Value="0,2,0,0"/>
+            <Setter Property="Foreground" Value="#4A3B3C"/>
+            <Setter Property="CaretBrush" Value="#E07856"/>
+        </Style>
+        <Style x:Key="PinkBtn" TargetType="Button">
+            <Setter Property="Background" Value="#E07856"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="0,10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="14"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#D0694A"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <!-- 主容器 -->
+    <Border Background="#FFFAFB" CornerRadius="20" BorderBrush="#F0D5DC" BorderThickness="1.5"
+            Padding="0">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="30" ShadowDepth="6" Opacity="0.15" Color="#E07856"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 标题栏 -->
+            <Border Grid.Row="0" CornerRadius="20,20,0,0" Padding="22,14" Cursor="SizeAll"
+                    MouseLeftButtonDown="Window_MouseLeftButtonDown">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#FFE8EC" Offset="0"/>
+                        <GradientStop Color="#FFF0F3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Text="🌸" FontSize="18" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="绘梨衣 · 设置" FontSize="15" FontWeight="Bold"
+                                   Foreground="#E07856" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Button Grid.Column="1" Content="✕" Click="OnCloseClick"
+                            Background="Transparent" Foreground="#C0A0A0" FontSize="18"
+                            Width="30" Height="30" BorderThickness="0" Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Transparent" CornerRadius="10">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="22,8,22,22">
+
+                    <!-- ═══ 呼吸 ═══ -->
+                    <TextBlock Text="🍃 呼吸动画" Style="{StaticResource SectionTitle}" Foreground="#E07856"/>
+                    <Border Background="White" CornerRadius="12" Padding="14,10" Margin="0,0,0,10"
+                            BorderBrush="#F5E8EB" BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.06" Color="#E07856"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <TextBlock Text="振幅" Margin="0,0,0,0"/>
+                            <Grid>
+                                <Slider x:Name="AmpSlider" Minimum="0.97" Maximum="1.03" Value="0.99"
+                                        TickFrequency="0.005" IsSnapToTickEnabled="True"/>
+                                <TextBlock x:Name="AmpLabel" HorizontalAlignment="Right" Margin="0,-8,0,0"/>
+                            </Grid>
+                            <TextBlock Text="周期 (ms)" Margin="0,6,0,0"/>
+                            <Slider x:Name="PeriodSlider" Minimum="2000" Maximum="5000" Value="3000"
+                                    TickFrequency="500" IsSnapToTickEnabled="True"/>
+                            <TextBlock x:Name="PeriodLabel" HorizontalAlignment="Right" Margin="0,-28,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ═══ 闲置 ═══ -->
+                    <TextBlock Text="💤 闲置 &amp; 大小" Style="{StaticResource SectionTitle}" Foreground="#E07856"/>
+                    <Border Background="White" CornerRadius="12" Padding="14,10" Margin="0,0,0,10"
+                            BorderBrush="#F5E8EB" BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.06" Color="#E07856"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <TextBlock Text="入睡等待 (秒)" Margin="0,0,0,0"/>
+                            <Slider x:Name="SleepSlider" Minimum="10" Maximum="120" Value="60"
+                                    TickFrequency="5" IsSnapToTickEnabled="True"/>
+                            <TextBlock x:Name="SleepLabel" HorizontalAlignment="Right" Margin="0,-28,0,0"/>
+
+                            <TextBlock Text="绘梨衣大小" Margin="0,6,0,0"/>
+                            <Slider x:Name="ScaleSlider" Minimum="0.5" Maximum="2.0" Value="1.0"
+                                    TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+                            <TextBlock x:Name="ScaleLabel" HorizontalAlignment="Right" Margin="0,-28,0,0"/>
+
+                            <TextBlock Text="主动互动频率" Margin="0,6,0,0"/>
+                            <Slider x:Name="InteractionSlider" Minimum="0" Maximum="2" Value="1"
+                                    TickFrequency="1" IsSnapToTickEnabled="True"/>
+                            <TextBlock x:Name="InteractionLabel" HorizontalAlignment="Right" Margin="0,-28,0,0"/>
+
+                            <TextBlock Text="窗口透明度" Margin="0,6,0,0"/>
+                            <Slider x:Name="OpacitySlider" Minimum="0.3" Maximum="1" Value="1"
+                                    TickFrequency="0.05" IsSnapToTickEnabled="True"/>
+                            <TextBlock x:Name="OpacityLabel" HorizontalAlignment="Right" Margin="0,-28,0,0"/>
+
+                            <TextBlock Text="音量" Margin="0,6,0,0"/>
+                            <Slider x:Name="VolumeSlider" Minimum="0.2" Maximum="1" Value="0.9"
+                                    TickFrequency="0.05" IsSnapToTickEnabled="True"/>
+                            <TextBlock x:Name="VolumeLabel" HorizontalAlignment="Right" Margin="0,-28,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ═══ 小黄鸭 ═══ -->
+                    <TextBlock Text="🐤 小黄鸭" Style="{StaticResource SectionTitle}" Foreground="#E07856"/>
+                    <Border Background="White" CornerRadius="12" Padding="14,10" Margin="0,0,0,10"
+                            BorderBrush="#F5E8EB" BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.06" Color="#E07856"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <TextBlock Text="出现概率" Margin="0,0,0,0"/>
+                            <Slider x:Name="DuckSlider" Minimum="0" Maximum="1" Value="0.25"
+                                    TickFrequency="0.05" IsSnapToTickEnabled="True"/>
+                            <TextBlock x:Name="DuckLabel" HorizontalAlignment="Right" Margin="0,-28,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ═══ 皮肤 ═══ -->
+                    <TextBlock Text="🎀 外观" Style="{StaticResource SectionTitle}" Foreground="#E07856"/>
+                    <Border Background="White" CornerRadius="12" Padding="14,10" Margin="0,0,0,10"
+                            BorderBrush="#F5E8EB" BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.06" Color="#E07856"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <ComboBox x:Name="SkinCombo" Height="34" FontSize="12"
+                                      Background="White" BorderBrush="#F0D5DC" Foreground="#4A3B3C"
+                                      Margin="0,2,0,0"/>
+                            <Grid Margin="0,6,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Content="📦 导入皮肤 (ZIP)" Click="OnImportSkin"
+                                        Background="#FFF0F3" Foreground="#E07856" FontSize="11"
+                                        Padding="6,6" BorderBrush="#F0D5DC" BorderThickness="1"
+                                        Cursor="Hand">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="1" CornerRadius="10"
+                                                    Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <Button Grid.Column="2" Content="🗑" Click="OnDeleteSkin"
+                                        Background="#FFF0F3" Foreground="#C0A0A0" FontSize="12"
+                                        Width="34" Height="28" BorderBrush="#F0D5DC" BorderThickness="1"
+                                        Cursor="Hand" ToolTip="删除当前皮肤">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="1" CornerRadius="10">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </Grid>
+                            <CheckBox x:Name="NightCheck" Content="🌙 夜间自动睡眠"
+                                      Margin="0,10,0,4" Foreground="#4A3B3C" FontSize="13"/>
+                            <CheckBox x:Name="FullscreenCheck" Content="🖥️ 全屏时自动缩角"
+                                      Margin="0,6,0,4" Foreground="#4A3B3C" FontSize="13"/>
+                            <CheckBox x:Name="WanderCheck" Content="🚶 自动散步蹦跶"
+                                      Margin="0,6,0,4" Foreground="#4A3B3C" FontSize="13"/>
+                            <CheckBox x:Name="DesktopAwareCheck" Content="🖥️ 桌面感知"
+                                      Margin="0,6,0,4" Foreground="#4A3B3C" FontSize="13"/>
+                            <CheckBox x:Name="PetalCheck" Content="🌸 樱花飘落特效"
+                                      Margin="0,6,0,4" Foreground="#4A3B3C" FontSize="13"/>
+                            <CheckBox x:Name="NightDimCheck" Content="🌙 深夜画面调暗氛围"
+                                      Margin="0,6,0,4" Foreground="#4A3B3C" FontSize="13"/>
+                            <CheckBox x:Name="MuteCheck" Content="🔇 禁音"
+                                      Margin="0,6,0,4" Foreground="#4A3B3C" FontSize="13"/>
+                            <CheckBox x:Name="VoicePackCheck" Content="🎧 生日等时刻播放绘梨衣原声"
+                                      Margin="0,6,0,4" Foreground="#4A3B3C" FontSize="13"/>
+                            <CheckBox x:Name="AutoStartCheck" Content="🚀 开机自动启动"
+                                      Margin="0,6,0,4" Foreground="#4A3B3C" FontSize="13"/>
+                            <TextBlock Text="🖥️ 所在显示器" Margin="0,8,0,0" FontSize="12" Foreground="#8A7A7C"/>
+                            <ComboBox x:Name="ScreenCombo" Height="32" FontSize="12"
+                                      Background="White" BorderBrush="#F0D5DC" Foreground="#4A3B3C"
+                                      Margin="0,2,0,0"/>
+                            <TextBlock Text="🎂 你的生日（月-日，如 07-11，留空则不提醒）"
+                                       Margin="0,8,0,0" FontSize="12" Foreground="#8A7A7C"/>
+                            <TextBox x:Name="UserBirthdayBox" Style="{StaticResource InputBox}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ═══ 存储 ═══ -->
+                    <TextBlock Text="🧠 记忆" Style="{StaticResource SectionTitle}" Foreground="#E07856"/>
+                    <Border Background="White" CornerRadius="12" Padding="14,10" Margin="0,0,0,10"
+                            BorderBrush="#F5E8EB" BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.06" Color="#E07856"/>
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="8"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="DataPathBox" Grid.Column="0" Style="{StaticResource InputBox}"
+                                     TextWrapping="Wrap" AcceptsReturn="False" VerticalAlignment="Center"/>
+                            <Button Grid.Column="2" Content="📂" Click="OnBrowseDataPath"
+                                    Background="#F0D5DC" Foreground="#E07856" FontSize="14"
+                                    Width="36" Height="34" BorderThickness="0" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <!-- ═══ 数据备份 ═══ -->
+                    <TextBlock Text="💾 数据备份" Style="{StaticResource SectionTitle}" Foreground="#E07856"/>
+                    <Border Background="White" CornerRadius="12" Padding="14,10" Margin="0,0,0,10"
+                            BorderBrush="#F5E8EB" BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.06" Color="#E07856"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <TextBlock Text="备份好感度、记忆与日记（推荐定期备份）"
+                                       FontSize="11" Foreground="#8A7A7C" TextWrapping="Wrap"/>
+                            <Grid Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Content="📦 备份数据…" Click="OnBackupData"
+                                        Background="#FFF0F3" Foreground="#E07856" FontSize="11"
+                                        Padding="6,8" BorderBrush="#F0D5DC" BorderThickness="1" Cursor="Hand">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="1" CornerRadius="10"
+                                                    Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <Button Grid.Column="2" Content="📂 恢复备份…" Click="OnRestoreData"
+                                        Background="#FFF0F3" Foreground="#8A7A7C" FontSize="11"
+                                        Padding="6,8" BorderBrush="#F0D5DC" BorderThickness="1" Cursor="Hand">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="1" CornerRadius="10"
+                                                    Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ═══ AI ═══ -->
+                    <TextBlock Text="🤖 AI 聊天 (灵魂)" Style="{StaticResource SectionTitle}" Foreground="#E07856"/>
+                    <Border Background="White" CornerRadius="12" Padding="14,10" Margin="0,0,0,10"
+                            BorderBrush="#F5E8EB" BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.06" Color="#E07856"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <TextBlock Text="API 地址" Margin="0,6,0,0"/>
+                            <TextBox x:Name="AiEndpointBox" Style="{StaticResource InputBox}"/>
+                            <TextBlock Text="API Key" Margin="0,6,0,0"/>
+                            <TextBox x:Name="AiKeyBox" Style="{StaticResource InputBox}"/>
+                            <TextBlock Text="模型名" Margin="0,6,0,0"/>
+                            <TextBox x:Name="AiModelBox" Style="{StaticResource InputBox}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ═══ 本地模型 ═══ -->
+                    <Border Background="White" CornerRadius="12" Padding="14,12" Margin="0,0,0,16"
+                            BorderBrush="#F5E8EB" BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.06" Color="#E07856"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <TextBlock Text="🖥️ 本地模型 (Ollama)" FontSize="14" FontWeight="Bold"
+                                       Foreground="#E07856" Margin="0,0,0,6"/>
+                            <CheckBox x:Name="LocalModelCheck" Content="启用本地模型（需先安装 Ollama）"
+                                      Margin="0,0,0,6" Foreground="#4A3B3C" FontSize="12"/>
+                            <TextBlock x:Name="OllamaStatus" FontSize="12" Foreground="#8A7A7C" TextWrapping="Wrap"/>
+                            <Button x:Name="OllamaHelpBtn" Content="📖 如何安装本地模型" Click="OnOllamaHelp"
+                                    Visibility="Collapsed" Margin="0,6,0,0" Style="{StaticResource PinkBtn}"
+                                    FontSize="11" Padding="8,6"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ═══ 本地语音模型 ═══ -->
+                    <TextBlock Text="🗣️ 本地语音模型 (GPT-SoVITS)" Style="{StaticResource SectionTitle}" Foreground="#E07856"/>
+                    <Border Background="White" CornerRadius="12" Padding="14,10" Margin="0,0,0,10"
+                            BorderBrush="#F5E8EB" BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.06" Color="#E07856"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <CheckBox x:Name="VoiceModelCheck" Content="启用绘梨衣音色（服务不可用时自动回退网络语音）"
+                                      Margin="0,0,0,6" Foreground="#4A3B3C" FontSize="12"/>
+                            <TextBlock Text="服务地址" Margin="0,4,0,0"/>
+                            <TextBox x:Name="VoiceModelEndpointBox" Style="{StaticResource InputBox}"/>
+                            <TextBlock Text="参考音频路径（默认 D:\GPT-SoVITS\ref_erii.wav）" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                            <TextBox x:Name="VoiceModelRefBox" Style="{StaticResource InputBox}"/>
+                            <TextBlock Text="参考音频原文（须与音频逐字一致）" Margin="0,6,0,0"/>
+                            <TextBox x:Name="VoiceModelPromptBox" Style="{StaticResource InputBox}"/>
+                            <TextBlock Text="服务启动脚本" Margin="0,6,0,0"/>
+                            <TextBox x:Name="VoiceServiceBatBox" Style="{StaticResource InputBox}"/>
+                            <Button x:Name="VoiceTestBtn" Content="▶ 试听（CPU 首句约 5~20 秒）" Click="OnVoiceModelTest"
+                                    Style="{StaticResource PinkBtn}" FontSize="11" Padding="8,6" Margin="0,8,0,0"/>
+                            <TextBlock x:Name="VoiceTestStatus" FontSize="11" Foreground="#8A7A7C" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ═══ 按钮 ═══ -->
+                    <Grid Margin="0,4,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="💾 保存" Click="OnSave"
+                                Style="{StaticResource PinkBtn}"/>
+                        <Button Grid.Column="2" Content="取消" Click="OnCancel"
+                                Background="#F0D5DC" Foreground="#8A7A7C" FontSize="13"
+                                FontWeight="SemiBold" Padding="0,10" BorderThickness="0"
+                                Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="14"
+                                            Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</Window>

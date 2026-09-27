@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>EriiPet.Animation</RootNamespace>
+    <AssemblyName>EriiPet.Animation</AssemblyName>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>NU1701</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="2.88.9" />
+    <PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EriiPet.Core\EriiPet.Core.csproj" />
+  </ItemGroup>
+
+</Project>

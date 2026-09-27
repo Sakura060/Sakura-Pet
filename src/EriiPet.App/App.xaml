@@ -1,0 +1,6 @@
+<Application x:Class="EriiPet.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ShutdownMode="OnExplicitShutdown">
+    <!-- 不设 StartupUri，由 App.xaml.cs 的 OnStartup 手动创建窗口 -->
+</Application>

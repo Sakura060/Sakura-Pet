@@ -1,0 +1,121 @@
+<Window x:Class="EriiPet.App.Views.ChatWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="💬 跟绘梨衣聊天" Width="470" Height="210"
+        WindowStyle="None" AllowsTransparency="True"
+        ResizeMode="NoResize" Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Microsoft YaHei"
+        KeyDown="OnKeyDown"
+        Activated="OnActivated"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+
+    <!-- 主容器 -->
+    <Border Background="#FFFAFB" CornerRadius="18" BorderBrush="#F0D5DC" BorderThickness="1.5">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="24" ShadowDepth="4" Opacity="0.15" Color="#E07856"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 标题栏 -->
+            <Border Grid.Row="0" CornerRadius="18,18,0,0" Padding="16,10"
+                    Cursor="SizeAll" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#FFE8EC" Offset="0"/>
+                        <GradientStop Color="#FFF0F3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Text="🌸" FontSize="14" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <TextBlock Text="跟绘梨衣聊天" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="#E07856" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Button Grid.Column="1" Content="✕" Click="OnClose"
+                            Background="Transparent" Foreground="#C0A0A0" FontSize="16"
+                            Width="28" Height="28" BorderThickness="0" Cursor="Hand"
+                            VerticalAlignment="Center">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Transparent" CornerRadius="8">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- 立绘 + 对话区 -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 绘梨衣立绘（坐在聊天窗左侧，像素风最近邻缩放） -->
+                <Image Grid.Column="0" x:Name="Portrait" Width="112" Height="112"
+                       Margin="10,0,0,8" VerticalAlignment="Bottom"
+                       RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+
+                <Grid Grid.Column="1" Margin="4,8,16,14">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 回复区域 -->
+                    <Border Grid.Row="0" Background="White" Margin="0,0,0,4" CornerRadius="12"
+                            BorderBrush="#F5E8EB" BorderThickness="1" Padding="14,12" MinHeight="50">
+                        <TextBlock x:Name="ReplyText" FontSize="15"
+                                   Foreground="#4A3B3C" TextWrapping="Wrap"
+                                   Text="Sakura…想说什么？"
+                                   VerticalAlignment="Center"/>
+                    </Border>
+
+                    <!-- 输入栏 -->
+                    <Border Grid.Row="1" CornerRadius="14"
+                            Background="White" BorderBrush="#F0D5DC" BorderThickness="1">
+                        <Grid Margin="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="InputBox" Grid.Column="0" FontSize="14"
+                                     Background="Transparent" Foreground="#4A3B3C"
+                                     BorderThickness="0" Padding="10,8"
+                                     VerticalContentAlignment="Center"
+                                     CaretBrush="#E07856"
+                                     Text=""/>
+
+                            <Button Grid.Column="2" Content="💬 发送" Click="OnSend"
+                                    Background="#E07856" Foreground="White"
+                                    FontSize="12" FontWeight="SemiBold"
+                                    Width="64" Height="32" BorderThickness="0"
+                                    Cursor="Hand" Margin="0,2,2,2">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="12">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
